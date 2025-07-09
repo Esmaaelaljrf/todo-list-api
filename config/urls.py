@@ -16,10 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView ## This view validates the email and password, then returns access and refresh tokens.
 from tasks import views
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', views.UserCreatingView.as_view()),    #as_view: we use it when we work with basic-class views
+    path('login/',TokenObtainPairView.as_view()),
     path('tasks/', views.TaskListCreateView.as_view()),
-    #as_view: we use it when we work with basic-class views
-    path('register/', views.UserCreatingView.as_view()),
+    path('tasks/<int:pk>/',views.TaskUpdateDeleteview.as_view())
+
+
 ]
